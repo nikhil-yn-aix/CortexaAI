@@ -16,7 +16,8 @@ from .chunker import TextChunker
 from .vectordb import VectorDB
 from .config import (
     CHUNK_SIZE, CHUNK_OVERLAP, EMBEDDING_MODEL,
-    VECTOR_DB, MAX_BOOKS_PER_TOPIC, MAX_CONTEXT_LENGTH
+    VECTOR_DB, MAX_BOOKS_PER_TOPIC, MAX_CONTEXT_LENGTH,
+    VECTOR_DB_PATH
 )
 
 logging.basicConfig(level=logging.INFO)
@@ -48,7 +49,7 @@ class RAGRetriever:
         )
         
         # Cache for processed documents
-        self.processed_cache_file = "vectordb_data/processed_docs.json"
+        self.processed_cache_file = os.path.join(VECTOR_DB_PATH, "processed_docs.json")
         self.processed_docs = self._load_processed_cache()
         
         logger.info("RAG Retriever initialized successfully")

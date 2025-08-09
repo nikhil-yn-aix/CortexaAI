@@ -22,7 +22,9 @@ EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
 
 # Vector Database Configuration
 VECTOR_DB = os.getenv("VECTOR_DB", "auto")  # "qdrant", "chroma", or "auto"
-VECTOR_DB_PATH = os.getenv("VECTOR_DB_PATH", "vectordb_data")
+# Get the services directory path
+SERVICES_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+VECTOR_DB_PATH = os.getenv("VECTOR_DB_PATH", os.path.join(SERVICES_DIR, "vectordb_data"))
 
 # Scraping Configuration
 MAX_BOOKS_PER_TOPIC = int(os.getenv("MAX_BOOKS_PER_TOPIC", "3"))
@@ -45,10 +47,10 @@ MAX_WORKERS = int(os.getenv("MAX_WORKERS", "4"))
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 LOG_FILE = os.getenv("LOG_FILE", "logs/rag_pipeline.log")
 
-# File Paths
-DOCUMENTS_DIR = os.getenv("DOCUMENTS_DIR", "documents")
-LOGS_DIR = os.getenv("LOGS_DIR", "logs")
-CACHE_DIR = os.getenv("CACHE_DIR", "cache")
+# File Paths - relative to services directory
+DOCUMENTS_DIR = os.getenv("DOCUMENTS_DIR", os.path.join(SERVICES_DIR, "documents"))
+LOGS_DIR = os.getenv("LOGS_DIR", os.path.join(SERVICES_DIR, "logs"))
+CACHE_DIR = os.getenv("CACHE_DIR", os.path.join(SERVICES_DIR, "cache"))
 
 # Create necessary directories
 for directory in [DOCUMENTS_DIR, LOGS_DIR, CACHE_DIR, VECTOR_DB_PATH]:
