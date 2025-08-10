@@ -1,21 +1,3 @@
-# ---------------------------------------------------------------------------- #
-#      Continuous Student Attention & Emotion Monitor (Backend-Only)             #
-# ---------------------------------------------------------------------------- #
-#
-# Description:
-# This script is a "headless" or backend-only version that uses a webcam
-# for analysis without displaying any video feed. It runs entirely in the
-# terminal, performing three main tasks:
-# 1. Face Detection: Identifies faces in the video stream.
-# 2. Emotion Recognition: Classifies the emotion of each detected face.
-# 3. Attention Estimation: Determines head direction (left, right, center).
-#
-# The analysis summary is printed directly to the console.
-# To stop the script, press Ctrl+C in your terminal.
-#
-# ---------------------------------------------------------------------------- #
-
-#pip install opencv-python dlib-bin torch transformers Pillow tqdm requests
 import cv2
 import dlib
 import numpy as np
@@ -26,41 +8,86 @@ import requests
 from tqdm import tqdm
 import bz2
 import time
+import json
+from datetime import datetime
 
-# --- 1. MODEL AND UTILITY SETUP ---
-
-# Define the path for the dlib landmark predictor model
 PREDICTOR_PATH = "shape_predictor_68_face_landmarks.dat"
+OUTPUT_FILE = "engagement_analysis.txt"
+JSON_OUTPUT_FILE = "engagement_analysis.json"
 
 def download_dlib_model():
-    """
-    Downloads the dlib facial landmark predictor model if it doesn't exist.
-    """
     if not os.path.exists(PREDICTOR_PATH):
-        print("Downloading dlib facial landmark model. This may take a moment...")
+        print("Downloading dlib facial landmark model...")
         url = "http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2"
         response = requests.get(url, stream=True)
         response.raise_for_status()
 
         total_size_in_bytes = int(response.headers.get('content-length', 0))
-        block_size = 1024  # 1 Kibibyte
-        
+        block_size = 1024
         progress_bar = tqdm(total=total_size_in_bytes, unit='iB', unit_scale=True)
-        
         decompressor = bz2.BZ2Decompressor()
+        
         with open(PREDICTOR_PATH, 'wb') as f:
             for data in response.iter_content(block_size):
                 progress_bar.update(len(data))
                 f.write(decompressor.decompress(data))
         progress_bar.close()
+        print("Model downloaded successfully.")
 
-        if total_size_in_bytes != 0 and progress_bar.n != total_size_in_bytes:
-            print("ERROR, something went wrong during download")
-        else:
-            print("Model downloaded successfully.")
+def write_analysis_to_file(summary, faces_data=None):
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
+        f.write(f"Last Updated: {timestamp}\n")
+        f.write("=" * 50 + "\n")
+        f.write(summary + "\n")
+        f.write("=" * 50 + "\n")
+    
+    json_data = {
+        "timestamp": timestamp,
+        "status": "active",
+        "summary": summary,
+        "faces_detected": len(faces_data) if faces_data else 0,
+        "faces_data": faces_data or []
+    }
+    
+    with open(JSON_OUTPUT_FILE, 'w', encoding='utf-8') as f:
+        json.dump(json_data, f, indent=2, ensure_ascii=False)
 
-# --- 2. LOAD MODELS ---
-print("Loading models, please wait...")
+def initialize_output_files():
+    startup_message = "Starting engagement analysis...\nWaiting for face detection..."
+    
+    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
+        f.write(f"Analysis Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+        f.write("=" * 50 + "\n")
+        f.write(startup_message + "\n")
+    
+    json_data = {
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "status": "initializing",
+        "summary": startup_message,
+        "faces_detected": 0,
+        "faces_data": []
+    }
+    
+    with open(JSON_OUTPUT_FILE, 'w', encoding='utf-8') as f:
+        json.dump(json_data, f, indent=2, ensure_ascii=False)
+
+def test_camera_access():
+    print("Testing camera access...")
+    for i in range(3):
+        print(f"Trying camera index {i}...")
+        cap = cv2.VideoCapture(i)
+        if cap.isOpened():
+            ret, frame = cap.read()
+            if ret:
+                print(f"Camera {i} working!")
+                cap.release()
+                return i
+            cap.release()
+    return None
+
+print("Loading models...")
 download_dlib_model()
 
 try:
@@ -68,53 +95,44 @@ try:
     predictor = dlib.shape_predictor(PREDICTOR_PATH)
 except RuntimeError as e:
     print(f"Error loading dlib model: {e}")
-    print("Please ensure 'shape_predictor_68_face_landmarks.dat' is in the correct directory.")
     exit()
 
-# Using a CPU-optimized, lightweight CNN-based model.
 emotion_classifier = pipeline(
     "image-classification",
     model="dima806/facial_emotions_image_detection",
-    top_k=1
+    top_k=1,
+    device=-1
 )
 
 print("Models loaded successfully.")
-
-# --- 3. CORE PROCESSING FUNCTION (Optimized for backend) ---
+initialize_output_files()
 
 def get_engagement_summary(frame: np.ndarray):
-    """
-    Analyzes a single frame and returns a text summary of the analysis.
-    The input frame is expected to be in RGB color format.
-    """
     if frame is None:
-        return "No frame received."
+        return "No frame received.", []
 
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
     faces = detector(gray_frame)
 
     if not faces:
-        return "Status: No face detected"
+        return "Status: No face detected", []
 
     analysis_summary = ""
+    faces_data = []
 
     for i, face in enumerate(faces):
         x1, y1, x2, y2 = face.left(), face.top(), face.right(), face.bottom()
 
-        # --- Emotion Recognition ---
         primary_emotion = "N/A"
         try:
             face_crop_img = frame[y1:y2, x1:x2]
             pil_face = Image.fromarray(face_crop_img)
-            
             emotion_results = emotion_classifier(pil_face)
             if emotion_results:
                 primary_emotion = emotion_results[0]['label'].capitalize()
-
         except Exception as e:
             print(f"Emotion detection error: {e}")
 
-        # --- Attention Estimation (via Head Pose) ---
         attention_status = "N/A"
         try:
             landmarks = predictor(gray_frame, face)
@@ -134,49 +152,69 @@ def get_engagement_summary(frame: np.ndarray):
         except Exception as e:
             print(f"Attention estimation error: {e}")
         
+        face_data = {
+            "face_id": i + 1,
+            "emotion": primary_emotion,
+            "attention": attention_status,
+            "bounding_box": {"x1": x1, "y1": y1, "x2": x2, "y2": y2}
+        }
+        faces_data.append(face_data)
         analysis_summary += f"Face {i+1}: Emotion={primary_emotion}, Attention={attention_status}\n"
 
-    return analysis_summary.strip()
+    return analysis_summary.strip(), faces_data
 
-
-# --- 4. MAIN LOOP TO CAPTURE AND PROCESS WEBCAM FEED ---
 if __name__ == "__main__":
-    cap = cv2.VideoCapture(0)
-
-    if not cap.isOpened():
-        print("Error: Could not open webcam.")
-        exit()
+    camera_index = test_camera_access()
     
-    print("\nStarting backend analysis. Press Ctrl+C to stop.")
+    if camera_index is None:
+        print("ERROR: No working camera found!")
+        print("Solutions:")
+        print("1. Close all apps using camera (Teams, Skype, Chrome)")
+        print("2. Check Windows camera permissions")
+        print("3. Restart your computer")
+        exit()
+
+    cap = cv2.VideoCapture(camera_index)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+    cap.set(cv2.CAP_PROP_FPS, 30)
+    
+    print(f"Using camera {camera_index}")
+    print("Starting analysis... Press Ctrl+C to stop.")
     
     try:
         while True:
             ret, frame = cap.read()
             if not ret:
-                print("Failed to grab frame. Exiting.")
-                break
+                print("Failed to grab frame. Retrying...")
+                time.sleep(1)
+                continue
 
-            # Convert BGR (from OpenCV) to RGB for the models
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
-            # Get the analysis summary
-            summary = get_engagement_summary(frame_rgb)
+            summary, faces_data = get_engagement_summary(frame_rgb)
+            write_analysis_to_file(summary, faces_data)
             
-            # Print summary to terminal only if a face was detected
             if "Face" in summary:
                 os.system('cls' if os.name == 'nt' else 'clear')
-                print("--- Engagement Analysis ---")
+                print("--- Live Analysis ---")
                 print(summary)
-                print("---------------------------")
-                print("Running... Press Ctrl+C to stop.")
+                print("--------------------")
             
-            # Wait for 1 second before processing the next frame to reduce CPU load
             time.sleep(1)
 
     except KeyboardInterrupt:
-        print("\nScript interrupted by user.")
+        print("\nStopping...")
+        final_json = {
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "status": "stopped",
+            "summary": "Analysis stopped.",
+            "faces_detected": 0,
+            "faces_data": []
+        }
+        
+        with open(JSON_OUTPUT_FILE, 'w', encoding='utf-8') as f:
+            json.dump(final_json, f, indent=2, ensure_ascii=False)
+            
     finally:
-        # --- 5. CLEANUP ---
-        print("Shutting down and releasing webcam...")
         cap.release()
         print("Done.")
