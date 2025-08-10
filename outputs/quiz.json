@@ -1,0 +1,81 @@
+{
+  "quiz_metadata": {
+    "title": "Neural Networks and Transformers Quiz",
+    "difficulty": "beginner",
+    "emotion_context": "confused",
+    "total_questions": 5,
+    "estimated_time_minutes": 10
+  },
+  "questions": [
+    {
+      "id": 1,
+      "question": "A neural network is trained to predict stock prices. It makes a prediction, and the result is compared to the actual stock price. What is the fundamental next step the network takes to improve its future predictions?",
+      "options": {
+        "A": "It adds more hidden layers to its architecture.",
+        "B": "It adjusts the weights of the connections between its neurons to minimize the error.",
+        "C": "It changes its activation functions to a different type, like ReLU.",
+        "D": "It requests more data before making another prediction."
+      },
+      "correct_answer": "B",
+      "explanation": "The core learning process of a neural network involves a cycle of prediction and correction. After calculating the error (the difference between the predicted and actual outcome), the network uses a process called backpropagation to adjust the weights of the connections between neurons. This adjustment is made to reduce the error, making the network's next prediction more accurate. While adding layers or changing functions can be part of redesigning a model, the fundamental learning step is weight adjustment.",
+      "topic": "Neural Network Learning Process",
+      "difficulty": "easy"
+    },
+    {
+      "id": 2,
+      "question": "Why are Transformer models generally better at understanding the meaning of a long, complex sentence compared to traditional Recurrent Neural Networks (RNNs)?",
+      "options": {
+        "A": "Transformers use convolutional layers which are better for text.",
+        "B": "Transformers process the sentence word-by-word using a loop, which preserves order better.",
+        "C": "Transformers use a self-attention mechanism, allowing them to weigh the influence of all words in the sentence at once.",
+        "D": "Transformers are simpler and have fewer connections, making them faster."
+      },
+      "correct_answer": "C",
+      "explanation": "The key innovation of the Transformer architecture is the self-attention mechanism. This allows the model to look at all the words in a sentence simultaneously and determine which other words are most important for understanding the context of any given word. This overcomes the long-range dependency problem that older architectures like RNNs struggled with, as RNNs process data sequentially and can 'forget' information from earlier in the sequence.",
+      "topic": "Transformer Architecture vs. RNNs",
+      "difficulty": "medium"
+    },
+    {
+      "id": 3,
+      "question": "If you were designing a neural network to classify thousands of images into categories like 'cat,' 'car,' or 'tree,' which specialized architecture would be the most appropriate choice?",
+      "options": {
+        "A": "A Recurrent Neural Network (RNN), because it can handle sequences of pixels.",
+        "B": "A Convolutional Neural Network (CNN), because it is designed to process grid-like data like images and extract features.",
+        "C": "A basic neural network with only an input and output layer, to keep it simple.",
+        "D": "A Transformer, because its self-attention mechanism is ideal for any data type."
+      },
+      "correct_answer": "B",
+      "explanation": "Convolutional Neural Networks (CNNs) are specifically designed for processing grid-like data, such as images. They use convolutional layers to automatically and efficiently detect features like edges, textures, and shapes. RNNs are designed for sequential data (like text or time series), not static images. While a Transformer could be adapted for images, a CNN is the standard, most direct, and specialized architecture for this type of task.",
+      "topic": "Specialized Neural Network Architectures",
+      "difficulty": "easy"
+    },
+    {
+      "id": 4,
+      "question": "What is the primary role of an activation function (e.g., ReLU, sigmoid) within a neuron of a neural network?",
+      "options": {
+        "A": "To reduce the dimensionality of the data and make the network faster.",
+        "B": "To decide which neuron in a layer should be activated and which should not.",
+        "C": "To introduce non-linearity, allowing the network to model complex relationships in the data.",
+        "D": "To normalize the input data before it is processed by the neuron."
+      },
+      "correct_answer": "C",
+      "explanation": "Without activation functions, a neural network, no matter how many layers it has, would behave like a simple linear model. Activation functions introduce non-linearity into the network's output. This is crucial because most real-world data has complex, non-linear relationships. By adding this capability, the network can learn and model these intricate patterns, such as the shape of a face in an image or the nuances of language.",
+      "topic": "Role of Activation Functions",
+      "difficulty": "medium"
+    },
+    {
+      "id": 5,
+      "question": "A small company wants to build an AI model to classify customer reviews but has only a small, specific dataset. What is the most efficient and effective training strategy they should use?",
+      "options": {
+        "A": "Build a very large neural network from scratch and train it only on their small dataset.",
+        "B": "Use transfer learning by taking a large, pre-trained language model and fine-tuning it on their specific dataset.",
+        "C": "Avoid neural networks and use a simpler, non-AI algorithm.",
+        "D": "Use only regularization techniques like dropout on their small dataset."
+      },
+      "correct_answer": "B",
+      "explanation": "Transfer learning is the ideal strategy in this scenario. It involves using a model that has already been trained on a massive dataset (like all of Wikipedia). This pre-trained model already has a sophisticated understanding of language. The company can then 'fine-tune' this model using their small, specific dataset. This approach saves enormous amounts of time and computational resources and typically results in much higher performance than training a model from scratch with limited data.",
+      "topic": "Transfer Learning",
+      "difficulty": "easy"
+    }
+  ]
+}

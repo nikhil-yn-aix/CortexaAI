@@ -1,0 +1,34 @@
+{
+  "metadata": {
+    "title": "Core AI Concepts Flashcards",
+    "total_cards": 3,
+    "emotion_context": "confused",
+    "difficulty": "appropriate"
+  },
+  "cards": [
+    {
+      "id": 1,
+      "question": "A neural network is struggling to correctly identify cats in images. According to its fundamental design, what specific internal change must happen for it to improve?",
+      "answer": "The network must adjust the 'weights' of the connections between its nodes. This process, called training, strengthens or weakens connections to help the network better recognize the patterns that define a 'cat'.",
+      "hint": "Think about how the network 'learns'. It doesn't grow new parts; it changes the strength of its existing connections.",
+      "topic": "Neural Network Fundamentals",
+      "difficulty": "easy"
+    },
+    {
+      "id": 2,
+      "question": "Imagine you are translating a long sentence. What is the main advantage a Transformer model has over an RNN model in understanding the sentence's full context?",
+      "answer": "A Transformer processes all words in the sentence at the same time (simultaneously). This allows it to immediately see relationships between distant words (e.g., the first and last). An RNN processes words one by one (sequentially), which can make it forget the context from the beginning of a long sentence.",
+      "hint": "How does each model 'read' the sentence? One word at a time, or all at once?",
+      "topic": "Transformers vs. RNNs",
+      "difficulty": "medium"
+    },
+    {
+      "id": 3,
+      "question": "A neural network just made a wrong prediction. What is the main *purpose* of using backpropagation at this moment?",
+      "answer": "The purpose of backpropagation is to work backward from the error and calculate exactly how much each connection weight contributed to it. This allows the network to make precise adjustments to those weights to reduce the error on the next attempt.",
+      "hint": "It's like a coach reviewing a game tape to tell each player exactly what they did wrong and how to correct it for the next play.",
+      "topic": "Backpropagation",
+      "difficulty": "medium"
+    }
+  ]
+}

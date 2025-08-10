@@ -1,0 +1,82 @@
+{
+  "documents/Lecture Notes Optimization for Machine Learning.pdf": {
+    "processed_time": 1754780414.9864936,
+    "chunks": 412,
+    "title": "Lecture Notes: Optimization for Machine Learning"
+  },
+  "documents/An Optimal Control View of Adversarial Machine Lea.pdf": {
+    "processed_time": 1754780416.1806548,
+    "chunks": 30,
+    "title": "An Optimal Control View of Adversarial Machine Learning"
+  },
+  "documents/Minimax deviation strategies for machine learning .pdf": {
+    "processed_time": 1754780417.8098173,
+    "chunks": 111,
+    "title": "Minimax deviation strategies for machine learning and recognition with short learning samples"
+  },
+  "Wikipedia_Machine learning": {
+    "processed_time": 1754780417.8115592,
+    "chunks": 1,
+    "title": "Machine learning"
+  },
+  "Wikipedia_Attention (machine learning)": {
+    "processed_time": 1754780417.8136947,
+    "chunks": 1,
+    "title": "Attention (machine learning)"
+  },
+  "Wikipedia_Neural network (machine learning)": {
+    "processed_time": 1754780417.8161018,
+    "chunks": 1,
+    "title": "Neural network (machine learning)"
+  },
+  "documents/Differentiable Neural Architecture Transformation .pdf": {
+    "processed_time": 1754780757.489869,
+    "chunks": 25,
+    "title": "Differentiable Neural Architecture Transformation for Reproducible Architecture Improvement"
+  },
+  "documents/Transfer NAS Knowledge Transfer between Search Spa.pdf": {
+    "processed_time": 1754780759.3870218,
+    "chunks": 49,
+    "title": "Transfer NAS: Knowledge Transfer between Search Spaces with Transformer Agents"
+  },
+  "documents/Persformer A Transformer Architecture for Topologi.pdf": {
+    "processed_time": 1754780764.0076385,
+    "chunks": 82,
+    "title": "Persformer: A Transformer Architecture for Topological Machine Learning"
+  },
+  "Wikipedia_Transformer (deep learning architecture)": {
+    "processed_time": 1754780764.0099187,
+    "chunks": 1,
+    "title": "Transformer (deep learning architecture)"
+  },
+  "Wikipedia_Mamba (deep learning architecture)": {
+    "processed_time": 1754780764.0108213,
+    "chunks": 1,
+    "title": "Mamba (deep learning architecture)"
+  },
+  "Wikipedia_Generative pre-trained transformer": {
+    "processed_time": 1754780764.0125961,
+    "chunks": 1,
+    "title": "Generative pre-trained transformer"
+  },
+  "documents/Opening the black box of deep learning.pdf": {
+    "processed_time": 1754782877.937196,
+    "chunks": 86,
+    "title": "Opening the black box of deep learning"
+  },
+  "Wikipedia_Deep learning": {
+    "processed_time": 1754782877.939299,
+    "chunks": 1,
+    "title": "Deep learning"
+  },
+  "documents/Some Insights into Lifelong Reinforcement Learning.pdf": {
+    "processed_time": 1754783498.9823828,
+    "chunks": 69,
+    "title": "Some Insights into Lifelong Reinforcement Learning Systems"
+  },
+  "Wikipedia_Reinforcement learning": {
+    "processed_time": 1754783498.9843197,
+    "chunks": 1,
+    "title": "Reinforcement learning"
+  }
+}
