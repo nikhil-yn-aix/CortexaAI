@@ -1,0 +1,49 @@
+{
+  "session_id": "test_neural_complete",
+  "topic": "Neural Networks and Deep Learning",
+  "scripts": {
+    "1": {
+      "segment_id": 1,
+      "title": "The Digital Brain: What is a Neural Network?",
+      "content": "(Upbeat, curious intro music fades slightly into background)\n\n**Host:** Ever wonder how your phone recognizes your face, or how a streaming service knows exactly what you want to watch next? It starts with an idea borrowed directly from us.\n\nPicture your brain's complex web of neurons. Now, imagine that structure morphing into a digital network of glowing nodes and connections. That, in a nutshell, is an artificial neural network.\n\nIt’s a powerful computing model made of layers. An **input layer** takes in raw data, like the pixels of an image. **Hidden layers** in the middle work to decipher patterns. And finally, an **output layer** delivers the answer, like identifying a 'cat' in that photo. \n\nSo, it’s a brain-inspired system that passes information through layers to reach a conclusion.",
+      "duration_minutes": 0.75,
+      "pacing": "normal",
+      "interaction_question": "But if these networks start as a blank slate, what do you think is the single most important ingredient needed to 'teach' a digital brain anything at all?",
+      "created_at": "2025-08-10T16:23:24.137714"
+    },
+    "2": {
+      "segment_id": 2,
+      "title": "Learning from Mistakes: Backpropagation & Gradient Descent",
+      "content": "(Upbeat, rhythmic intro music fades out)\n\nHost: Last time, we built our basic neural network. Now, let’s watch it learn. Imagine we feed it a picture of a cat. The data flows forward, and at each connection, a ‘weight’ acts like a tiny volume knob, adjusting the signal. The network makes its guess… ‘Dog!’\n\n(Sound of a subtle ‘wrong’ buzzer)\n\nHost: Whoops. An error signal then travels *backward* through the network—this is called backpropagation. It tells each weight how to adjust to get closer to ‘Cat’ next time. This adjustment process, called ‘gradient descent,’ is like a ball rolling down a hill, always searching for the lowest point of error. By repeating this process millions of times, the network literally learns from its mistakes.",
+      "duration_minutes": 0.75,
+      "pacing": "normal",
+      "interaction_question": "If a machine can learn from millions of tiny, mathematical mistakes, how is that fundamentally different from how we, as humans, learn a new skill?",
+      "created_at": "2025-08-10T16:23:44.064919"
+    },
+    "3": {
+      "segment_id": 3,
+      "title": "Going Deep: How Neural Networks Learn Complexity",
+      "content": "(Sound of a gentle, futuristic synth fades in and out)\n\nIn our last segment, we saw how a simple network learns. (pause) But for truly complex tasks, we need to go much deeper. This is the core idea behind what we call Deep Learning.\n\nImagine we take that network... and we stack layer, after layer, of artificial neurons. (pause) This depth allows the network to find patterns… within other patterns. So it might learn to see simple edges first… then more complex shapes… and finally, put it all together to recognize a complete face in an image.\n\nNow… let's zoom way in… to a single one of those neurons. Inside, there's a vital component. (pause) It’s called an 'activation function'. The best way to think of it is as a dimmer switch for a light, not just a simple on-or-off button.\n\nThis dimmer switch introduces what's called non-linearity. (pause) And all that means… is it lets the network model the messy, curved, complicated reality of our world… not just perfect, straight lines.",
+      "duration_minutes": 0.75,
+      "pacing": "slow",
+      "interaction_question": "If each tiny node acts like a decision-maker, what kind of incredibly complex judgments could a network with billions of them truly make?",
+      "created_at": "2025-08-10T16:30:28.836914"
+    },
+    "4": {
+      "segment_id": 4,
+      "title": "AI's Specialist Tools: CNNs and RNNs",
+      "content": "In our last segment, we touched on how a basic neural network learns. But here's the thing about AI… it doesn’t use just one type of model. Different network architectures are built for very different tasks.\n\nLet's start with image recognition. For this, we use what’s called a Convolutional Neural Network… or CNN. Think of a CNN as a set of digital eyes. It carefully scans an image, using special filters to spot simple patterns… like an edge here, or a texture there. By piecing these patterns together, it learns to recognize what it's seeing.\n\nThen, there’s language. For this, we need a different tool: a Recurrent Neural Network… an RNN. The key to an RNN is its memory. It processes a sentence one… word… at a time… all while remembering what came before it. This ability to hold context is what makes it so powerful for tasks like translation.\n\nSo these specialized designs… the CNN for seeing, and the RNN for understanding language… they are the real engines driving the AI we use every day.",
+      "duration_minutes": 0.75,
+      "pacing": "slow",
+      "interaction_question": "As we design more specialized AI 'brains' for seeing and hearing, what human sense do you think will be the most difficult for a machine to replicate?",
+      "created_at": "2025-08-10T16:30:54.915049"
+    }
+  },
+  "animations": {
+    "1": "sessions/test_neural_complete/segment_1.mp4",
+    "2": "sessions/test_neural_complete/segment_2.mp4",
+    "3": "sessions/test_neural_complete/segment_3.mp4",
+    "4": "sessions/test_neural_complete/segment_4.mp4"
+  },
+  "created_at": "2025-08-10T16:30:03.110093"
+}
