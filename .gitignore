@@ -1,4 +1,13 @@
 .env
-git_cheatsheet.md
-road.txt
 venv
+__pycache__
+test
+vectordb_data
+outputs
+outputs
+frontend
+shape_predictor_68_face_landmarks.dat
+cortexai_session.log
+engagement_analysis.json
+engagement_analysis.txt
+sessions
